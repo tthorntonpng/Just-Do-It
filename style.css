@@ -3,8 +3,8 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #111;
-    color: #fff;
+    background-color: #000; /* black background */
+    color: #fff; /* white text */
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -13,15 +13,15 @@ body {
 }
 
 .container {
-    background-color: #222;
+    background-color: #111; /* dark grey for contrast */
     padding: 30px;
     border-radius: 10px;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(255,255,255,0.2); /* white shadow */
 }
 
-/* Spinning, pulsing Just Do It header */
+/* Front-to-back spinning, pulsing, bouncing Just Do It header */
 .just-do-it {
     font-family: 'Anton', sans-serif;
     font-size: 3rem;
@@ -29,24 +29,37 @@ body {
     text-align: center;
     margin-bottom: 20px;
     position: relative;
-    animation: spin 3s linear infinite, colorPulse 2s ease-in-out infinite alternate;
+    animation: flipPulse 5s linear infinite;
     text-shadow: 
-        2px 2px 0 #000,
-        4px 4px 0 #222,
-        6px 6px 0 #444; /* 3D layered effect */
+        2px 2px 0 #fff,
+        4px 4px 0 #ccc,
+        6px 6px 0 #999; /* 3D effect in shades of white/grey */
+    transform-style: preserve-3d;
+    perspective: 800px;
 }
 
-/* Full 360° spin */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Color pulsing for extra energy */
-@keyframes colorPulse {
-    0% { color: #ff3d00; }
-    50% { color: #ffb200; }
-    100% { color: #ff3d00; }
+/* Front-to-back rotation + pulsing + bouncing */
+@keyframes flipPulse {
+    0% {
+        transform: rotateX(0deg) scale(1);
+        color: #fff; /* white */
+    }
+    25% {
+        transform: rotateX(90deg) scale(1.05);
+        color: #ccc; /* light grey */
+    }
+    50% {
+        transform: rotateX(180deg) scale(1);
+        color: #fff;
+    }
+    75% {
+        transform: rotateX(270deg) scale(1.05);
+        color: #ccc;
+    }
+    100% {
+        transform: rotateX(360deg) scale(1);
+        color: #fff;
+    }
 }
 
 /* Task input section */
@@ -61,20 +74,22 @@ body {
     border: none;
     border-radius: 5px 0 0 5px;
     outline: none;
+    background-color: #222; /* dark grey input */
+    color: #fff; /* white text */
 }
 
 #add-task-btn {
     padding: 10px;
     border: none;
-    background-color: #ff3d00;
-    color: #fff;
+    background-color: #fff; /* white button */
+    color: #000; /* black text */
     font-weight: bold;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
 }
 
 #add-task-btn:hover {
-    background-color: #ff5e3a;
+    background-color: #ccc; /* light grey hover */
 }
 
 /* Task list styling */
@@ -84,13 +99,14 @@ body {
 }
 
 #task-list li {
-    background-color: #333;
+    background-color: #111; /* darker list item */
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #fff;
 }
 
 #task-list li.completed {
@@ -101,11 +117,11 @@ body {
 .delete-btn {
     background-color: transparent;
     border: none;
-    color: #ff3d00;
+    color: #fff; /* white delete button */
     font-weight: bold;
     cursor: pointer;
 }
 
 .delete-btn:hover {
-    color: #ff5e3a;
+    color: #ccc; /* light grey hover */
 }
