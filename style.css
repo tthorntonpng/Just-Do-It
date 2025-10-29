@@ -117,11 +117,21 @@ body {
 .delete-btn {
     background-color: transparent;
     border: none;
-    color: #fff; /* white delete button */
+    color: #fff; /* white delete button (optional) */
     font-weight: bold;
     cursor: pointer;
 }
 
 .delete-btn:hover {
     color: #ccc; /* light grey hover */
+}
+
+/* Slide-out animation for deleting tasks */
+.slide-out {
+    animation: slideOut 0.5s forwards;
+}
+
+@keyframes slideOut {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-100%); opacity: 0; }
 }
