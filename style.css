@@ -1,3 +1,6 @@
+/* Import bold font */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #111;
@@ -18,13 +21,35 @@ body {
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-h1 {
-    text-align: center;
-    color: #ff3d00;
-    margin-bottom: 20px;
+/* Spinning, pulsing Just Do It header */
+.just-do-it {
+    font-family: 'Anton', sans-serif;
+    font-size: 3rem;
     text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    animation: spin 3s linear infinite, colorPulse 2s ease-in-out infinite alternate;
+    text-shadow: 
+        2px 2px 0 #000,
+        4px 4px 0 #222,
+        6px 6px 0 #444; /* 3D layered effect */
 }
 
+/* Full 360° spin */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Color pulsing for extra energy */
+@keyframes colorPulse {
+    0% { color: #ff3d00; }
+    50% { color: #ffb200; }
+    100% { color: #ff3d00; }
+}
+
+/* Task input section */
 .task-input {
     display: flex;
     margin-bottom: 20px;
@@ -52,6 +77,7 @@ h1 {
     background-color: #ff5e3a;
 }
 
+/* Task list styling */
 #task-list {
     list-style: none;
     padding: 0;
