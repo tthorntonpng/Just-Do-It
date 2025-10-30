@@ -1,175 +1,93 @@
-/* === Global Reset === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* === Variables === */
-:root {
-  --black: #000;
-  --white: #fff;
-  --pink: #ff69b4;
-  --gray: #222;
-}
-
-/* === Body === */
 body {
-  background-color: var(--black);
-  color: var(--white);
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   min-height: 100vh;
-  padding: 40px 20px;
+  margin: 0;
+  padding: 0;
 }
 
-/* === Header: Inline 3D Spin (restored original) === */
 h1 {
-  font-size: clamp(2.4rem, 7vw, 3rem);
+  font-size: 3.5rem;
   font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1.8px;
-  color: var(--white);
-  margin: 0 0 25px 0;
-  display: block;
+  color: #fff;
+  text-shadow: 3px 3px 0 #ff007f, -3px -3px 0 #ff007f;
+  margin-top: 50px;
+  letter-spacing: 2px;
   text-align: center;
-  white-space: nowrap;
-  text-shadow:
-    1px 1px 0 #ff69b4,
-    2px 2px 0 #ff69b4,
-    3px 3px 0 #ff69b4,
-    4px 4px 0 #ff69b4,
-    5px 5px 0 #ff69b4,
-    6px 6px 0 #ff69b4,
-    7px 7px 0 #ff69b4,
-    8px 8px 0 #ff69b4,
-    9px 9px 0 #ff69b4,
-    10px 10px 12px rgba(255,105,180,0.85),
-    0 0 20px rgba(255,105,180,0.6);
-  animation: spin 10s linear infinite;
+  display: inline-block;
+  animation: spinText 6s linear infinite;
+  transform-style: preserve-3d;
 }
 
-/* === Smooth 3D Rotation (restored original style) === */
-@keyframes spin {
+@keyframes spinText {
   0% { transform: rotateY(0deg); }
   100% { transform: rotateY(360deg); }
 }
 
-/* === Task Container === */
 .container {
-  width: 100%;
-  max-width: 450px;
-  background: var(--gray);
-  border-radius: 12px;
-  padding: 25px 20px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-/* === Input Area === */
-.input-area {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  width: 90%;
+  max-width: 500px;
+  background-color: #111;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #ff007f;
+  margin-top: 40px;
 }
 
 input[type="text"] {
   width: 70%;
-  padding: 10px 12px;
+  padding: 10px;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   outline: none;
-  font-size: 1rem;
 }
 
 button {
-  padding: 10px 16px;
+  padding: 10px 15px;
+  margin-left: 10px;
   border: none;
-  border-radius: 6px;
-  background-color: var(--pink);
-  color: var(--white);
-  font-size: 1rem;
-  font-weight: 600;
+  background-color: #ff007f;
+  color: #fff;
+  border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.3s ease;
+  font-weight: bold;
 }
 
 button:hover {
-  transform: scale(1.05);
-  background-color: #ff80c1;
+  background-color: #ff3399;
 }
 
-/* === Category Filter === */
-.filters {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 18px;
-}
-
-.filter {
-  cursor: pointer;
-  font-weight: 700;
-  color: var(--white);
-  border-bottom: 2px solid transparent;
-  padding: 4px 6px;
-  transition: all 0.3s ease;
-}
-
-.filter.active {
-  border-color: var(--pink);
-  color: var(--pink);
-}
-
-/* === Task List === */
 ul {
-  list-style: none;
-  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
 }
 
 li {
-  background: var(--black);
-  margin: 10px 0;
-  padding: 12px 14px;
-  border-radius: 6px;
+  background: #222;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-/* Swipe-to-delete area */
-li.deleting {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-/* Delete Button (pink) */
-.delete-btn {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--pink);
-  border: none;
-  color: var(--white);
-  font-weight: 700;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-/* Appear when swiping */
-li.swiping .delete-btn {
-  opacity: 1;
-}
-
-/* Hover highlight */
 li:hover {
-  background: #111;
+  transform: translateX(-10px);
+}
+
+.delete {
+  background-color: #ff007f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
