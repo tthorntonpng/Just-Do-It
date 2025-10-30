@@ -26,7 +26,7 @@ body {
   padding: 40px 20px;
 }
 
-/* === Header: full inline 3D text === */
+/* === Header: Inline 3D Spin (restored original) === */
 h1 {
   font-size: clamp(2.4rem, 7vw, 3rem);
   font-weight: 900;
@@ -37,7 +37,6 @@ h1 {
   display: block;
   text-align: center;
   white-space: nowrap;
-  transform-style: preserve-3d;
   text-shadow:
     1px 1px 0 #ff69b4,
     2px 2px 0 #ff69b4,
@@ -50,13 +49,12 @@ h1 {
     9px 9px 0 #ff69b4,
     10px 10px 12px rgba(255,105,180,0.85),
     0 0 20px rgba(255,105,180,0.6);
-  animation: headerTilt 12s linear infinite;
+  animation: spin 10s linear infinite;
 }
 
-/* === 3D Rotation Animation (left-right only) === */
-@keyframes headerTilt {
+/* === Smooth 3D Rotation (restored original style) === */
+@keyframes spin {
   0% { transform: rotateY(0deg); }
-  50% { transform: rotateY(180deg); }
   100% { transform: rotateY(360deg); }
 }
 
