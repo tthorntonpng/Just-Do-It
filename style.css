@@ -1,135 +1,106 @@
-/* Import bold header font */
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #000;          /* black background */
-    color: #fff;                     /* white text */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
-    margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .container {
-    background-color: #111;          /* dark gray card */
-    padding: 30px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  width: 350px;
+  background: #111;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #ff1493;
+  text-align: center;
 }
 
-/* Rotating 3-D header */
-.just-do-it {
-    font-family: 'Anton', sans-serif;
-    font-size: 3rem;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 20px;
-    animation: flipYPulse 5s linear infinite;
-    text-shadow:
-        2px 2px 0 #fff,
-        4px 4px 0 #ccc,
-        6px 6px 0 #999;
-    transform-style: preserve-3d;
-    perspective: 800px;
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  color: #ff1493;
+  animation: rotateSide 6s linear infinite;
+  transform-style: preserve-3d;
 }
 
-@keyframes flipYPulse {
-    0%   { transform: rotateY(0deg) scale(1);   color:#fff; }
-    25%  { transform: rotateY(90deg) scale(1.05);color:#ccc;}
-    50%  { transform: rotateY(180deg) scale(1); color:#fff; }
-    75%  { transform: rotateY(270deg) scale(1.05);color:#ccc;}
-    100% { transform: rotateY(360deg) scale(1); color:#fff; }
+@keyframes rotateSide {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
 }
 
-/* Input area */
 .task-input {
-    display: flex;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-#new-task {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    background-color: #222;
-    color: #fff;
+#taskInput {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
 }
 
-#add-task-btn {
-    padding: 10px;
-    border: none;
-    background-color: #ff69b4;   /* pink Add button */
-    color: #000;
-    font-weight: bold;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+#addTask {
+  padding: 10px 15px;
+  background: #ff1493;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-#add-task-btn:hover {
-    background-color: #ff85c1;
+#addTask:hover {
+  background: #ff69b4;
 }
 
-/* Task list */
-#task-list {
-    list-style: none;
-    padding: 0;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Each task row */
-.task-item {
-    position: relative;
-    background-color: #111;
-    color: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
+.task {
+  position: relative;
+  background: #222;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  overflow: hidden;
 }
 
-.task-text {
-    flex: 1;
-    transition: transform 0.3s ease;
+.task.deleting {
+  transform: translateX(-100%);
+  opacity: 0;
 }
 
-/* Pink swipe-to-delete button (hidden by default) */
 .delete-btn {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    background-color: #ff69b4;  /* pink delete */
-    color: #000;
-    border: none;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    cursor: pointer;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: #ff1493;
+  color: white;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
 }
 
-/* When swiped */
-.task-item.swiped .task-text {
-    transform: translateX(-80px);
-}
-
-.task-item.swiped .delete-btn {
-    transform: translateX(0);
-}
-
-/* Completed task look */
-.task-item.completed .task-text {
-    text-decoration: line-through;
-    opacity: 0.6;
+.task.show-delete .delete-btn {
+  transform: translateX(0);
 }
