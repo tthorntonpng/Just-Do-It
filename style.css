@@ -50,13 +50,12 @@ h1 {
     9px 9px 0 #ff69b4,
     10px 10px 12px rgba(255,105,180,0.85),
     0 0 20px rgba(255,105,180,0.6);
-  animation: headerTilt 12s linear infinite;
+  animation: spinY 12s linear infinite;
 }
 
-/* === 3D Rotation Animation (left-right only) === */
-@keyframes headerTilt {
+/* === 3D Rotation Animation (left-right) === */
+@keyframes spinY {
   0% { transform: rotateY(0deg); }
-  50% { transform: rotateY(180deg); }
   100% { transform: rotateY(360deg); }
 }
 
