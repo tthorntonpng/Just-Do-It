@@ -8,7 +8,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  perspective: 1000px;
+  perspective: 800px;
 }
 
 /* === Container === */
@@ -17,38 +17,42 @@ body {
   text-align: center;
 }
 
-/* === Header (bold, blocky 3D effect with smooth rotation) === */
+/* === Header (true layered 3D effect with rotation) === */
 h1 {
   font-size: 4rem;
-  font-weight: 1000;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 3px;
   color: #fff;
   position: relative;
   transform-style: preserve-3d;
-  animation: rotate3D 14s linear infinite; /* slower rotation */
+  animation: rotate3D 12s linear infinite;
   margin-bottom: 25px;
   text-shadow:
+    1px 1px 0 #ff69b4,
     2px 2px 0 #ff69b4,
+    3px 3px 0 #ff69b4,
     4px 4px 0 #ff69b4,
+    5px 5px 0 #ff69b4,
     6px 6px 0 #ff69b4,
+    7px 7px 0 #ff69b4,
     8px 8px 0 #ff69b4,
-    10px 10px 0 #ff69b4,
-    12px 12px 15px rgba(255, 192, 203, 0.8),
-    0 0 25px rgba(255, 192, 203, 0.9);
+    9px 9px 0 #ff69b4,
+    10px 10px 15px rgba(255,105,180,0.9),
+    0 0 25px rgba(255,105,180,0.8);
 }
 
-/* 3D rotation (smooth floating effect) */
+/* Rotate side-to-side (depth rotation only) */
 @keyframes rotate3D {
   0% { transform: rotateY(0deg); }
-  25% { transform: rotateY(90deg); }
-  50% { transform: rotateY(180deg); }
-  75% { transform: rotateY(270deg); }
-  100% { transform: rotateY(360deg); }
+  50% { transform: rotateY(15deg); }
+  100% { transform: rotateY(0deg); }
 }
 
 /* === Filters === */
-.filter-container { margin-bottom: 15px; }
+.filter-container {
+  margin-bottom: 15px;
+}
 
 .filter {
   background-color: transparent;
@@ -96,7 +100,10 @@ h1 {
 }
 
 /* === Task List === */
-#taskList { list-style: none; padding: 0; }
+#taskList {
+  list-style: none;
+  padding: 0;
+}
 
 .task {
   background: #111;
