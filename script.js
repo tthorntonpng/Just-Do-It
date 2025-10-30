@@ -1,58 +1,84 @@
-// === Elements ===
-const addTaskBtn = document.getElementById('addTaskBtn');
-const taskInput = document.getElementById('taskInput');
-const categorySelect = document.getElementById('categorySelect');
-const taskList = document.getElementById('taskList');
+// === Grab DOM Elements ===
+const taskInput = document.querySelector('input[type="text"]');
+const addButton = document.querySelector('button');
+const taskList = document.querySelector('ul');
 const filters = document.querySelectorAll('.filter');
+const categorySelect = document.querySelector('.select-category');
 
-let tasks = [];
-
-// === Add Task ===
-addTaskBtn.addEventListener('click', () => {
+// === Add a new task ===
+function addTask() {
   const taskText = taskInput.value.trim();
-  const category = categorySelect.value;
-
+  const category = categorySelect ? categorySelect.value : 'all';
   if (taskText === '') return;
 
-  const task = { text: taskText, category: category };
-  tasks.push(task);
-  renderTasks();
+  const li = document.createElement('li');
+  li.textContent = taskText;
+  li.setAttribute('data-category', category);
 
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'Delete';
+  deleteBtn.className = 'delete-btn';
+  li.appendChild(deleteBtn);
+
+  taskList.appendChild(li);
   taskInput.value = '';
+}
+
+// Add button click
+addButton.addEventListener('click', addTask);
+
+// Press Enter key
+taskInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') addTask();
 });
 
-// === Render Tasks ===
-function renderTasks(filterCategory = 'all') {
-  taskList.innerHTML = '';
+// === Filter Tasks ===
+filters.forEach(filter => {
+  filter.addEventListener('click', () => {
+    filters.forEach(f => f.classList.remove('active'));
+    filter.classList.add('active');
 
-  const filteredTasks = tasks.filter(task => 
-    filterCategory === 'all' || task.category === filterCategory
-  );
-
-  filteredTasks.forEach((task, index) => {
-    const li = document.createElement('li');
-    li.classList.add('task');
-    li.innerHTML = `
-      <span><strong>[${task.category}]</strong> ${task.text}</span>
-      <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
-    `;
-    taskList.appendChild(li);
+    const selected = filter.getAttribute('data-filter');
+    document.querySelectorAll('ul li').forEach(li => {
+      if (selected === 'all' || li.getAttribute('data-category') === selected) {
+        li.style.display = 'flex';
+      } else {
+        li.style.display = 'none';
+      }
+    });
   });
-}
+});
 
-// === Delete Task ===
-function deleteTask(index) {
-  tasks.splice(index, 1);
-  renderTasks(currentFilter);
-}
+// === Swipe-to-delete functionality ===
+let startX = 0;
+let currentX = 0;
+let swipingLi = null;
 
-// === Filter Buttons ===
-let currentFilter = 'all';
-filters.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filters.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = btn.dataset.category;
-    renderTasks(currentFilter);
-  });
+taskList.addEventListener('touchstart', (e) => {
+  swipingLi = e.target.closest('li');
+  if (!swipingLi) return;
+  startX = e.touches[0].clientX;
+});
+
+taskList.addEventListener('touchmove', (e) => {
+  if (!swipingLi) return;
+  currentX = e.touches[0].clientX;
+  const diffX = currentX - startX;
+
+  if (diffX < -20) { // swipe left threshold
+    swipingLi.classList.add('swiping');
+  } else if (diffX > 20) { // swipe right to cancel
+    swipingLi.classList.remove('swiping');
+  }
+});
+
+taskList.addEventListener('touchend', (e) => {
+  swipingLi = null;
+});
+
+// === Delete button click ===
+taskList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-btn')) {
+    e.target.closest('li').remove();
+  }
 });
