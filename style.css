@@ -8,6 +8,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  perspective: 1000px; /* this makes the 3D rotation visible */
 }
 
 h1 {
@@ -19,7 +20,7 @@ h1 {
   letter-spacing: 2px;
   text-align: center;
   display: inline-block;
-  animation: spinText 6s linear infinite;
+  animation: spinText 8s linear infinite;
   transform-style: preserve-3d;
 }
 
