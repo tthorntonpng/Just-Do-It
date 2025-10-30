@@ -1,3 +1,4 @@
+/* === Global Reset === */
 * {
   margin: 0;
   padding: 0;
@@ -5,13 +6,16 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* === Variables === */
 :root {
   --black: #000;
   --white: #fff;
   --pink: #ff69b4;
   --gray: #222;
+  --pastel-pink: #ffc0cb;
 }
 
+/* === Body === */
 body {
   background-color: var(--black);
   color: var(--white);
@@ -29,33 +33,33 @@ h1 {
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--white);
+  color: var(--white); /* Front letters */
   margin: 0 0 25px 0;
   display: block;
   text-align: center;
   white-space: nowrap;
   transform-style: preserve-3d;
   perspective: 800px;
-  /* Thick retro 3D shadow layers */
+  /* Pink layered shadows for 3D effect */
   text-shadow:
-    1px 1px 0 #ff69b4,
-    2px 2px 0 #ff69b4,
-    3px 3px 0 #ff69b4,
-    4px 4px 0 #ff69b4,
-    5px 5px 0 #ff69b4,
-    6px 6px 0 #ff69b4,
-    7px 7px 0 #ff69b4,
-    8px 8px 0 #ff69b4,
-    9px 9px 0 #ff69b4,
-    10px 10px 0 #ff69b4,
-    11px 11px 0 #ff69b4,
-    12px 12px 0 #ff69b4,
-    13px 13px 0 #ff69b4,
-    14px 14px 0 #ff69b4,
-    15px 15px 0 #ff69b4,
-    16px 16px 0 #ff69b4,
-    17px 17px 0 #ff69b4,
-    18px 18px 0 #ff69b4,
+    1px 1px 0 var(--pink),
+    2px 2px 0 var(--pink),
+    3px 3px 0 var(--pink),
+    4px 4px 0 var(--pink),
+    5px 5px 0 var(--pink),
+    6px 6px 0 var(--pink),
+    7px 7px 0 var(--pink),
+    8px 8px 0 var(--pink),
+    9px 9px 0 var(--pink),
+    10px 10px 0 var(--pink),
+    11px 11px 0 var(--pink),
+    12px 12px 0 var(--pink),
+    13px 13px 0 var(--pink),
+    14px 14px 0 var(--pink),
+    15px 15px 0 var(--pink),
+    16px 16px 0 var(--pink),
+    17px 17px 0 var(--pink),
+    18px 18px 0 var(--pink),
     0 0 20px rgba(255,105,180,0.6);
   animation: spinY 12s linear infinite;
 }
@@ -67,6 +71,7 @@ h1 {
   100% { transform: rotateY(360deg); }
 }
 
+/* === Task Container === */
 .container {
   width: 100%;
   max-width: 450px;
@@ -76,6 +81,7 @@ h1 {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
+/* === Input Area === */
 .input-area {
   display: flex;
   justify-content: space-between;
@@ -109,6 +115,7 @@ button:hover {
   background-color: #ff80c1;
 }
 
+/* === Category Filter === */
 .filters {
   display: flex;
   justify-content: space-around;
@@ -124,11 +131,30 @@ button:hover {
   transition: all 0.3s ease;
 }
 
+/* Active/clicked filter turns black for readability */
 .filter.active {
   border-color: var(--pink);
-  color: var(--pink);
+  color: var(--black);
 }
 
+/* Dropdown for categories */
+.select-category {
+  background-color: var(--pastel-pink);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--black);
+  margin-bottom: 18px;
+}
+
+.select-category option {
+  font-weight: 600;
+  color: var(--black);
+}
+
+/* === Task List === */
 ul {
   list-style: none;
   width: 100%;
@@ -146,11 +172,13 @@ li {
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
+/* Swipe-to-delete area */
 li.deleting {
   transform: translateX(-100%);
   opacity: 0;
 }
 
+/* Delete Button (pink) */
 .delete-btn {
   position: absolute;
   right: 10px;
@@ -171,6 +199,7 @@ li.swiping .delete-btn {
   opacity: 1;
 }
 
+/* Hover highlight */
 li:hover {
   background: #111;
 }
