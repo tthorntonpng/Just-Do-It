@@ -27,13 +27,13 @@ body {
   padding: 40px 20px;
 }
 
-/* === Header: Retro 60s Bold 3D Text === */
+/* === Header: Retro 60s Bold 3D Text with Thicker White Letters === */
 h1 {
   font-size: clamp(2.4rem, 7vw, 3rem);
-  font-weight: 900;
+  font-weight: 1000; /* thicker than before */
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--white); /* Front letters */
+  color: var(--white); /* front letters */
   margin: 0 0 25px 0;
   display: block;
   text-align: center;
@@ -52,14 +52,6 @@ h1 {
     8px 8px 0 var(--pink),
     9px 9px 0 var(--pink),
     10px 10px 0 var(--pink),
-    11px 11px 0 var(--pink),
-    12px 12px 0 var(--pink),
-    13px 13px 0 var(--pink),
-    14px 14px 0 var(--pink),
-    15px 15px 0 var(--pink),
-    16px 16px 0 var(--pink),
-    17px 17px 0 var(--pink),
-    18px 18px 0 var(--pink),
     0 0 20px rgba(255,105,180,0.6);
   animation: spinY 12s linear infinite;
 }
@@ -115,7 +107,7 @@ button:hover {
   background-color: #ff80c1;
 }
 
-/* === Category Filter === */
+/* === Category Filter Tabs === */
 .filters {
   display: flex;
   justify-content: space-around;
@@ -137,7 +129,7 @@ button:hover {
   color: var(--black);
 }
 
-/* Dropdown for categories */
+/* === Dropdown Menu for Categories === */
 .select-category {
   background-color: var(--pastel-pink);
   border: none;
@@ -147,10 +139,11 @@ button:hover {
   cursor: pointer;
   color: var(--black);
   margin-bottom: 18px;
+  width: 100%;
 }
 
 .select-category option {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--black);
 }
 
