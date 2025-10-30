@@ -1,122 +1,58 @@
-// Elements
-const addBtn = document.getElementById('add-task-btn');
-const input = document.getElementById('new-task');
-const list = document.getElementById('task-list');
+// === Elements ===
+const addTaskBtn = document.getElementById('addTaskBtn');
+const taskInput = document.getElementById('taskInput');
+const categorySelect = document.getElementById('categorySelect');
+const taskList = document.getElementById('taskList');
+const filters = document.querySelectorAll('.filter');
 
-// Load saved tasks
-document.addEventListener('DOMContentLoaded', loadTasks);
+let tasks = [];
 
-// Add task (button or Enter)
-addBtn.addEventListener('click', handleAdd);
-input.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAdd(); });
+// === Add Task ===
+addTaskBtn.addEventListener('click', () => {
+  const taskText = taskInput.value.trim();
+  const category = categorySelect.value;
 
-function handleAdd() {
-  const text = input.value.trim();
-  if (!text) return;
-  addTaskToDOM(text);
-  saveTask(text, false);
-  input.value = '';
-}
+  if (taskText === '') return;
 
-// Create DOM structure for a task item
-function addTaskToDOM(text, completed = false) {
-  const li = document.createElement('li');
-  li.className = 'task-item' + (completed ? ' completed' : '');
-  
-  const span = document.createElement('div');
-  span.className = 'task-text';
-  span.textContent = text;
+  const task = { text: taskText, category: category };
+  tasks.push(task);
+  renderTasks();
 
-  // delete button (pink)
-  const del = document.createElement('button');
-  del.className = 'delete-btn';
-  del.textContent = 'Delete';
+  taskInput.value = '';
+});
 
-  // append elements
-  li.appendChild(span);
-  li.appendChild(del);
-  list.appendChild(li);
+// === Render Tasks ===
+function renderTasks(filterCategory = 'all') {
+  taskList.innerHTML = '';
 
-  // toggle complete on tap of the text
-  span.addEventListener('click', () => {
-    li.classList.toggle('completed');
-    updateTaskStatus(text, li.classList.contains('completed'));
+  const filteredTasks = tasks.filter(task => 
+    filterCategory === 'all' || task.category === filterCategory
+  );
+
+  filteredTasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.classList.add('task');
+    li.innerHTML = `
+      <span><strong>[${task.category}]</strong> ${task.text}</span>
+      <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
+    `;
+    taskList.appendChild(li);
   });
+}
 
-  // Delete on tap of delete button
-  del.addEventListener('click', () => {
-    confirmAndRemove(li, text);
+// === Delete Task ===
+function deleteTask(index) {
+  tasks.splice(index, 1);
+  renderTasks(currentFilter);
+}
+
+// === Filter Buttons ===
+let currentFilter = 'all';
+filters.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filters.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.category;
+    renderTasks(currentFilter);
   });
-
-  // Touch swipe handling for mobile: reveal delete on left swipe
-  let startX = 0;
-  let currentX = 0;
-  let swiped = false;
-
-  li.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-  }, {passive: true});
-
-  li.addEventListener('touchmove', (e) => {
-    currentX = e.touches[0].clientX;
-    const diff = startX - currentX;
-    // reveal when dragging left past threshold
-    if (diff > 20) {
-      li.classList.add('swiped');
-      swiped = true;
-    } else if (diff < -20) {
-      li.classList.remove('swiped');
-      swiped = false;
-    }
-  }, {passive: true});
-
-  // On touchend: if swiped far (auto-delete) else leave reveal
-  li.addEventListener('touchend', (e) => {
-    const diff = startX - (e.changedTouches[0].clientX || currentX);
-    if (diff > 120) {
-      // swiped far enough → quick delete
-      confirmAndRemove(li, text);
-    }
-  });
-
-  // Desktop: allow click+drag or double-click as fallback (dblclick deletes)
-  li.addEventListener('dblclick', () => confirmAndRemove(li, text));
-}
-
-// Confirm removal animation + remove from storage
-function confirmAndRemove(li, text) {
-  // animate removal
-  li.classList.remove('swiped'); // hide delete button
-  li.classList.add('removing');
-  setTimeout(() => {
-    li.remove();
-    removeTaskFromStorage(text);
-  }, 280);
-}
-
-// LOCAL STORAGE helpers
-function saveTask(text, completed) {
-  const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-  tasks.push({ text, completed });
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-function removeTaskFromStorage(text) {
-  let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-  tasks = tasks.filter(t => t.text !== text);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-function updateTaskStatus(text, completed) {
-  const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-  const updated = tasks.map(t => {
-    if (t.text === text) return { text: t.text, completed };
-    return t;
-  });
-  localStorage.setItem('tasks', JSON.stringify(updated));
-}
-
-function loadTasks() {
-  const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-  tasks.forEach(t => addTaskToDOM(t.text, t.completed));
-}
+});
