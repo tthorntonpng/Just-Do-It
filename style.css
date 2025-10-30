@@ -8,7 +8,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  perspective: 1000px; /* this makes the 3D rotation visible */
+  perspective: 800px; /* enables true 3D rotation */
 }
 
 h1 {
@@ -20,11 +20,12 @@ h1 {
   letter-spacing: 2px;
   text-align: center;
   display: inline-block;
-  animation: spinText 8s linear infinite;
+  transform-origin: center;
   transform-style: preserve-3d;
+  animation: rotateLeftRight 8s linear infinite;
 }
 
-@keyframes spinText {
+@keyframes rotateLeftRight {
   0% { transform: rotateY(0deg); }
   100% { transform: rotateY(360deg); }
 }
